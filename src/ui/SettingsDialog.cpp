@@ -49,6 +49,11 @@ void SettingsDialog::showEvent(QShowEvent *event)
 	ui->include_screenshots_checkbox->setChecked(
 		Config::Inst().m_include_screenshots);
 
+	ui->force_exe_checkbox->setChecked(Config::Inst().m_force_exe);
+
+	ui->include_game_in_filename_checkbox->setChecked(
+		Config::Inst().m_include_game_in_filename);
+
 	ui->play_notification_sound_checkbox->setChecked(
 		Config::Inst().m_play_notif_sound);
 
@@ -70,6 +75,11 @@ void SettingsDialog::ApplyConfig()
 
 	Config::Inst().m_include_screenshots =
 		this->ui->include_screenshots_checkbox->isChecked();
+
+	Config::Inst().m_force_exe = this->ui->force_exe_checkbox->isChecked();
+
+	Config::Inst().m_include_game_in_filename =
+		this->ui->include_game_in_filename_checkbox->isChecked();
 
 	Config::Inst().m_play_notif_sound =
 		this->ui->play_notification_sound_checkbox->isChecked();

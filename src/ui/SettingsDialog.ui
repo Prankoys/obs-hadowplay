@@ -133,6 +133,20 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="force_exe_checkbox">
+     <property name="text">
+      <string>OBSHadowplay.Settings.ForceExecutableName</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="include_game_in_filename_checkbox">
+     <property name="text">
+      <string>OBSHadowplay.Settings.IncludeGameInFilename</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="group_box_global">
      <property name="title">
       <string>OBSHadowplay.Settings.Notifications</string>

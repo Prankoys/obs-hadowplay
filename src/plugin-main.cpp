@@ -34,6 +34,8 @@ OBS_MODULE_USE_DEFAULT_LOCALE(PLUGIN_NAME, "en-US")
 
 #define TEXT_SETTINGS_MENU obs_module_text("OBSHadowplay.Settings")
 
+static std::string exe_name;
+
 bool obs_hadowplay_is_capture_source(obs_source_t *source)
 {
 	return (source != nullptr &&
@@ -97,7 +99,7 @@ bool obs_hadowplay_get_captured_name(std::string &target_name)
 			obs_source_get_name(active_capture_source));
 
 		obs_hadowplay_get_product_name_from_source(
-			active_capture_source, target_name);
+			active_capture_source, target_name, exe_name);
 		obs_source_release(active_capture_source);
 		obs_source_release(scene_source);
 		return true;
@@ -129,7 +131,13 @@ void obs_hadowplay_move_output_file(const std::string &original_filepath,
 		os_mkdir(target_directory.c_str());
 	}
 
-	std::string new_filepath = target_directory + "/" + replay_filename;
+	std::string new_filepath;
+	if (Config::Inst().m_include_game_in_filename == true) {
+		new_filepath = target_directory + "/" + exe_name + " " +
+			       replay_filename;
+	} else {
+		new_filepath = target_directory + "/" + replay_filename;
+	}
 
 	obs_log(LOG_INFO, "Renaming files: %s -> %s", original_filepath.c_str(),
 		new_filepath.c_str());

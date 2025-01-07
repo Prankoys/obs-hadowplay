@@ -4,6 +4,8 @@
 #define CONFIG_PLAY_NOTIF_SOUND "PlayNotifSound"
 #define CONFIG_SHOW_DESKTOP_NOTIF "ShowDesktopNotif"
 #define CONFIG_INCLUDE_SCREENSHOTS "IncludeScreenshots"
+#define CONFIG_FORCE_EXE_NAME "ForceExecutableName"
+#define CONFIG_INCLUDE_GAME_IN_FILENAME "IncludeGameInFilename"
 #define CONFIG_EXCLUSION_ITEM_STRING "AppName"
 #define CONFIG_EXCLUSIONS "Exclusions"
 
@@ -25,6 +27,8 @@ struct Config {
 
 	bool m_auto_replay_buffer = true;
 	bool m_include_screenshots = true;
+	bool m_force_exe = false;
+	bool m_include_game_in_filename = false;
 	bool m_play_notif_sound = true;
 	bool m_show_desktop_notif = true;
 	std::vector<std::string> m_exclusions = std::vector<std::string>();

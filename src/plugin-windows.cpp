@@ -283,7 +283,8 @@ HWND obs_hadowplay_find_window(const std::wstring &title,
 }
 
 bool obs_hadowplay_get_product_name_from_source(obs_source_t *source,
-						std::string &product_name)
+						std::string &product_name,
+						std::string &exe_name)
 {
 	if (source == nullptr)
 		return false;
@@ -310,6 +311,8 @@ bool obs_hadowplay_get_product_name_from_source(obs_source_t *source,
 	wchar_t *exe_w = nullptr;
 	os_utf8_to_wcs_ptr(exe, strlen(exe), &exe_w);
 
+	exe_name = obs_hadowplay_strip_executable_extension(exe);
+
 	HWND window = obs_hadowplay_find_window(title_w, win_class_w, exe_w);
 
 	bfree(title_w);
@@ -318,10 +321,13 @@ bool obs_hadowplay_get_product_name_from_source(obs_source_t *source,
 
 	std::wstring filepath;
 
-	if (win_get_window_filepath(window, filepath) == true) {
-		if (win_get_product_name(filepath, product_name) == true) {
-			calldata_free(&hooked_calldata);
-			return true;
+	if (Config::Inst().m_force_exe != true) {
+		if (win_get_window_filepath(window, filepath) == true) {
+			if (win_get_product_name(filepath, product_name) ==
+			    true) {
+				calldata_free(&hooked_calldata);
+				return true;
+			}
 		}
 	}
 
